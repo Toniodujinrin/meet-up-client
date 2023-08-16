@@ -1,9 +1,18 @@
 import React from 'react';
 
-const ProfilePic = ({image}) => {
+const ProfilePic = ({image, type}) => {
+    
     return ( 
-            <div className={`w-[50px] ${!image && `p-2`} bg-black aspect-square rounded-full`}>
-            <img className='w-full h-full' src={image?image:"../userIcon.svg"} alt="" />
+        <div>
+                {
+                    type == "online"&&
+                    <div className='w-[10px] h-[10px] rounded-full relative top-[12px] bg-tekhelet'></div>
+                }
+            
+            <div className={`w-[50px] ${!image && `p-2`} bg-black border-2 border-midGray aspect-square rounded-full`}>
+            
+            <img className={` w-full h-full ${image && `rounded-full`}`} src={image?image:"../userIcon.svg"} alt="" />
+            </div>
             </div>
         
      );

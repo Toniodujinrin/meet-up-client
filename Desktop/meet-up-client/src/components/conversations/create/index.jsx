@@ -4,6 +4,7 @@ import { UserContext } from '../../../contexts/UserContext';
 import Contact from './contact';
 import InputGroup from '../../inputGroup';
 import { ConversationContext } from '../../../contexts/conversationContext';
+import BackArrow from '../../backArrow';
 
 const Create = () => {
     const {userContacts} = useContext(UserContext)
@@ -38,7 +39,10 @@ const Create = () => {
     return (  
         <div className='w-full h-full bg-black p-4'>
             <div className='flex flex-row justify-between mb-4'>
+            <div className='flex gap-3 items-center'>
+            <BackArrow/>
             <h1 className='text-white font-semibold text-[32px]'>New</h1>
+            </div>
             <button onClick={handleCreate} disabled={selected.length == 0 || (selected.length > 1 && name.length ===0)}   className='py-2 w-[100px] bg-tekhelet rounded-lg text-white'>Create</button>
             </div>
             {
@@ -49,7 +53,7 @@ const Create = () => {
             <div className='w-full lg:grid grid-cols-3 flex flex-col  mt-4 gap-4'>
             {
                 userContacts.map(contact => 
-                    <Contact image={""} username={contact.username} _id = {contact._id} selected={selected} select={select}/>
+                    <Contact image={contact.profilePic? contact.profilePic.url:""} username={contact.username} _id = {contact._id} selected={selected} select={select}/>
                 )
             }
             </div>

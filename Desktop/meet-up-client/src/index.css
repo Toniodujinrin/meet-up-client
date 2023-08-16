@@ -51,6 +51,14 @@
   animation: dot-flashing 1s infinite alternate;
   animation-delay: 1s;
 }
+@keyframes dot-flashing {
+  0% {
+    background-color: #7a7c80;
+  }
+  50%, 100% {
+    background-color:#ffffff;
+  }
+}
 
 .loader {
   width: 48px;

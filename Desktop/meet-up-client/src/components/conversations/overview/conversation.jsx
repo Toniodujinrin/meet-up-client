@@ -8,7 +8,7 @@ const Conversation = ({name, image,_id,}) => {
     const location = useLocation()
   
     return ( 
-        <div onClick={()=>{ location.pathname != `/conversation/${_id}` && navigate(`/conversation/${_id}`)}} className='w-full border-b  border-midGray gap-4 flex flex-row  items-center  h-[100px]'>
+        <div onClick={()=>{ location.pathname != `/conversation/${_id}` && navigate(`/conversation/${_id}`,{replace:true})}} className='w-full border-b  border-midGray gap-4 flex flex-row  items-center  h-[100px]'>
         <ProfilePic image={image}/>
         <div>
             <h2 className='text-white'>{name}</h2>

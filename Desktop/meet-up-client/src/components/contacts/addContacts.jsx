@@ -5,7 +5,7 @@ import Contact from './contacts';
 import SearchBar from '../conversations/overview/searchBar';
 
 const AddUsers = () => {
-    const {pendingReceived, searchUsers, searchedUsers, userSearchLoading} = useContext(UserContext)
+    const { searchUsers, searchedUsers, userSearchLoading} = useContext(UserContext)
     const [value,setValue] = useState("")
 
     useEffect(()=>{
@@ -28,14 +28,12 @@ const AddUsers = () => {
                 
                 <div className='flex flex-col gap-4 lg:grid grid-cols-3 w-full h-full '>
                     {
-                    
                     searchedUsers.map(user => 
-                        <Contact username={user.username} _id={user._id}/>
+                        <Contact key={user._id} username={user.username}  image={user.profilePic?user.profilePic.url:""} _id={user._id}/>
                     )
                 }
                 </div>
             }
-         
             </div>
             </div>
       

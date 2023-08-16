@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL:"https://meetup-rosy.vercel.app/api"
+  //baseURL:"http://localhost:3003/api"
+ baseURL:"https://meetup-rosy.vercel.app/api"
 })
 
 

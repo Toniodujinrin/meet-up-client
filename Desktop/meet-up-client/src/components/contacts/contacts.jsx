@@ -11,12 +11,16 @@ const Contact = ({username, image, _id}) => {
     const received = pendingReceived.map(contact => {return contact._id})
     const sent = pendingSent.map(contact => {return contact._id})
     return ( 
-        <div className='bg-midGray cursor-pointer rounded-md lg:w-[300px] w-full gap-3 p-3 h-[70px] items-center flex flex-row'>
+        <div className='bg-midGray cursor-pointer rounded-md lg:w-[300px] w-full gap-3 p-3 h-[80px] items-center flex flex-row'>
            
             <ProfilePic image={image}/>
-            <div>
+            <div className='flex flex-col'>
             <p className='text-white'>{username}</p>
             <small className='text-mainGray'>{_id}</small>
+            {
+                sent.includes(_id)&&
+                <small className='text-tekhelet '>pending</small>
+            }
             </div>
 
             {
@@ -26,8 +30,10 @@ const Contact = ({username, image, _id}) => {
 
             {
                 received.includes(_id)&&
-                <img onClick={()=>acceptRequest(_id)} src="../accept.svg" alt="" className='w-[30px] h-[30px]' />
+                <img onClick={()=>acceptRequest(_id)} src="../accept.svg" alt="" className='w-[20px] ml-3 h-[20px]' />
             }
+
+            
         </div>
      );
 }

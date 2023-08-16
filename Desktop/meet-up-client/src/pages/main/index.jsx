@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Overview from '../../components/conversations/overview';
-import Chat from '../../components/conversations/chat';
 import { UserContext } from '../../contexts/UserContext';
 import {useQueries} from 'react-query';
 import LoadingPage from '../../components/loadingPage';

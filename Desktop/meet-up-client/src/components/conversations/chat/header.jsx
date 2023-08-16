@@ -1,23 +1,25 @@
 import React from 'react';
 import ProfilePic from '../../profilePic';
-import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime"
 import { useContext } from 'react';
 import { ConversationContext } from '../../../contexts/conversationContext';
 import { SocketContext } from '../../../contexts/socketContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 const Header = () => {
+    const navigate = useNavigate()
+    const {id} = useParams()
     dayjs.extend(relativeTime)
     const {conversationDetails} = useContext(ConversationContext)
-    const {onlineGroupUsers, leaveConversation} = useContext(SocketContext)
-    const {id} = useParams()
-    const navigate = useNavigate()
+    const {onlineGroupUsers, leaveConversation } = useContext(SocketContext)
+    
+    
     return (  
         <div className='bg-darkGray w-full h-[100px] flex border-b border-midGray flex-row items-center justify-between p-4 '>
             <div className='flex flex-row gap-3 items-center'>
-                <img onClick={()=>{navigate(-1); leaveConversation(id) }} className=' rotate-180 w-[30px] h-[30px]' src="../chevron.svg" alt="" />
-                <ProfilePic/>
+            <img onClick={()=>{navigate("/main"); leaveConversation(id)}} src="../chevron.svg" className='w-[30px] h-[30px] rotate-180 lg:hidden' alt="" />
+                <ProfilePic image={conversationDetails.conversationPic?conversationDetails.conversationPic.url:""}/>
                 <div>
                     <p className='text-white font-semibold'>{conversationDetails.name}</p>
                     {

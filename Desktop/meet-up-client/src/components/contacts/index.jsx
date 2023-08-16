@@ -3,6 +3,7 @@ import CurrentContacts from './currentContacts';
 import PendingContactsSent from './pendingSent';
 import PendingContactsReceived from './pendingReceived';
 import AddUsers from './addContacts';
+import BackArrow from '../backArrow';
 
 const ContactsComp = () => {
     const [currentPage,setCurrentPage] = useState("current")
@@ -20,6 +21,7 @@ const ContactsComp = () => {
                     :
                     <>
                     <div className='text-white text-[36px] mb-4 flex flex-row items-center gap-4'> 
+                    <BackArrow/>
                      <div>Contacts</div>
                     <img onClick={()=>setDropDownShowing(!dropDownShowing)} className={`w-[30px] h-[30px]  transition-[5000] ${dropDownShowing?"":`rotate-90`} `} src="../chevron.svg" alt="" />
                     </div>

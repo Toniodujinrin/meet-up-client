@@ -11,10 +11,10 @@ const CurrentContacts = () => {
       
             <div>
             <SearchBar value={value} setValue={setValue} placeholder={"search for a contact"}/>
-            <div className='w-full h-full lg:grid grid-cols-3 flex flex-col items-center'>
+            <div className='w-full h-full lg:grid grid-cols-3 flex flex-col gap-4 items-center'>
             {
                 userContacts.map(user => 
-                    <Contact username={user.username} _id={user._id}/>
+                    <Contact key={user._id} username={user.username} image={user.profilePic?user.profilePic.url:""} _id={user._id}/>
                 )
             }
             </div>

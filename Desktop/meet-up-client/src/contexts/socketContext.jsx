@@ -7,13 +7,14 @@ import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
 
 
-const URL = `https://meetup-rosy.vercel.app/`
+const URL = `http://localhost:3003/`
 
 
 export const SocketContext = createContext()
 const sock = io(URL,{autoConnect:false})
 
 const SocketContextProvider = ({children})=>{
+    const user = JSON.parse(window.localStorage.getItem("user"))
     const encryption = new Encryption()
     const [socket,setSocket] = useState()
     const navigate = useNavigate()
@@ -23,10 +24,10 @@ const SocketContextProvider = ({children})=>{
     const [onlineGroupUsers,setOnlineGroupUsers] = useState([])
     const [groupKey, setGroupKey] = useState("")
     const [previousMessages, setPreviousMessages] = useState([])
-    const [newMessage,setNewMessage] = useState("")
+    const [newMessage,setNewMessage] = useState({})
     const [encryptedGroupKey,setEncryptedGroupKey] = useState()
     const [currentConversation,setCurrentConversation] = useState('')
-   
+    
     useEffect(()=>{
         //perform connection again when the page is loaded redirect user to main page
         if(!checkForToken()) return navigate("/login")
@@ -53,34 +54,43 @@ const SocketContextProvider = ({children})=>{
     }
 
     useEffect(()=>{
-        if(newMessage && groupKey){
-            const _newMessage = newMessage
-            _newMessage.body = JSON.parse(encryption.decryptMessage(_newMessage.body, groupKey))
-            setMessages([...messages,_newMessage])
-    }
+        try {
+            if(newMessage && groupKey){
+                const _newMessage = newMessage
+                _newMessage.body = JSON.parse(encryption.decryptMessage(_newMessage.body, groupKey))
+                if(_newMessage.senderId._id !== user._id){
+                    socket.emit("messageRead",{conversationId:currentConversation})
+                }
+                setMessages([...messages,_newMessage])
+                
+        }
+        } catch (error) {
+            
+        }
+      
     },[newMessage])
 
     useEffect(()=>{
-        const user = JSON.parse(window.localStorage.getItem("user"))
+        
         if(encryptedGroupKey && user){
-            console.log(encryptedGroupKey)
+            
             setGroupKey(encryption.decryptGroupKey(user.keyPair.privateKey,encryptedGroupKey))
         }
     },[encryptedGroupKey])
 
     useEffect(()=>{
         try{
-        if(groupKey){
+        if(groupKey && previousMessages){
             const _previousMessages = [...previousMessages]
             _previousMessages.map(message => {
                 if(typeof message.body == "string") message.body = JSON.parse(encryption.decryptMessage(message.body,groupKey))
             })
             setMessages(_previousMessages)
-           
+            setPreviousMessages()
         }
        }
        catch(error){
-        console.log(error)
+        
        }
     },[groupKey,previousMessages])
 

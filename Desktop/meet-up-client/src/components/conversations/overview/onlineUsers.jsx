@@ -7,7 +7,7 @@ const OnlineUsers = () => {
     const {userContacts} = useContext(UserContext)
     const {onlineContacts} = useContext(SocketContext)
     
- 
+
     
     return ( 
         <div className='w-full p-4 '>
@@ -24,7 +24,7 @@ const OnlineUsers = () => {
                     userContacts.map((user,index)=>
                     
                         <div key={index}  className={`items-center ${!onlineContacts.includes(user._id) && `hidden` } flex flex-col`}>
-                        <ProfilePic/>
+                        <ProfilePic image={user.profilePic? user.profilePic.url: ""} type={'online'}/>
                         <p  className=' text-mainGray'>{user.username}</p>
                     </div>
                     )

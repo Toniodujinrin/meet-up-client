@@ -15,6 +15,7 @@ const Chat = () => {
             conversationId:id
         }
         sendMessage(paylaod)
+        setValue("")
     }
 
    
@@ -30,7 +31,7 @@ const Chat = () => {
         <div className=' flex overflow-scroll overflow-x-hidden h-[calc(100%-50px)] flex-col gap-4 w-full p-3 '>
             {
                 messages.map((message,index) =>
-                    <Message key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp}/>
+                    <Message key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status}/>
                 )
                     
             }

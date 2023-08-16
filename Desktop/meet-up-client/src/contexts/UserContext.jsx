@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { post, get } from "../api/config";
+import { post, get, put } from "../api/config";
 import jwtDecode from "jwt-decode";
 import { TokenContext } from "./TokenContext";
 import {toast} from "react-hot-toast"
@@ -22,6 +22,8 @@ const UserContextProvider = ({children})=>{
     const [searchedUsers, setSearchedUsers] = useState([])
     const [pendingReceived, setPendingReceived] = useState([])
     const [userSearchLoading, setUserSearchLoading] = useState(false)
+    const [updateProcessLoading, setUpdateProcessLoading] = useState(false)
+    const [profilePicLoading,setProfilePicLoading] = useState(false)
 
     const authenticate = async (payload)=>{
         try {
@@ -118,10 +120,46 @@ const UserContextProvider = ({children})=>{
             toast.error("could not accept contact request")
         }
     }
+
+    const updateUser = async (payload)=>{
+
+        if(!checkForToken()) return navigate("/login", {replace:true})
+        try {
+            setUpdateProcessLoading(true)
+            await put("users",payload)
+            queryClient.invalidateQueries(["user"])
+            toast.success("profile updated")
+        } catch (error) {
+            toast.error("could not update profile")
+        }
+        finally{
+            setUpdateProcessLoading(false)
+        }
+    }
+
+    const uploadProfilePic = async (payload)=>{
+        if(!checkForToken()) return navigate("/login", {replace:true})
+        try {
+            setProfilePicLoading(true)
+            await post("users/uploadImage",payload)
+            queryClient.invalidateQueries(["user"])
+            toast.success("profile updated")
+        } catch (error) {
+            toast.error("could not upload profile picture")
+        }
+        finally{
+            setProfilePicLoading(false)
+        }
+        
+    }
+
+    
+
+    
     
 
     return(
-        <UserContext.Provider value={{acceptRequest, sendRequest, searchUsers, searchedUsers, userSearchLoading, authenticate, getPendingReceived, getPendingSent, pendingReceived, pendingSent, authenticationProcessLoading, getSelf,user, getConversations, userConversations, userContacts, getContacts,logout }}>
+        <UserContext.Provider value={{uploadProfilePic,profilePicLoading, updateProcessLoading,updateUser,acceptRequest, sendRequest, searchUsers, searchedUsers, userSearchLoading, authenticate, getPendingReceived, getPendingSent, pendingReceived, pendingSent, authenticationProcessLoading, getSelf,user, getConversations, userConversations, userContacts, getContacts,logout }}>
             {children}
         </UserContext.Provider>
     )
