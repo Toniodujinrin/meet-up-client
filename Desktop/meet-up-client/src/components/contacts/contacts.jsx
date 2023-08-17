@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ProfilePic from '../profilePic';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';

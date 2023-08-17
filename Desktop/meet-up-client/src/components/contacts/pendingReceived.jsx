@@ -16,7 +16,7 @@ const PendingContactsReceived = () => {
          else{
              setSearchResults(pendingReceived)
          }
-    },[value])
+    },[value,pendingReceived])
     return ( 
       
             <div>
