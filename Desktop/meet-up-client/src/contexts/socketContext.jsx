@@ -7,7 +7,7 @@ import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
 
 
-const URL = "https://meetup-rosy.vercel.app/"
+const URL = "https://meetup-rosy.vercel.app:443/"
 
 
 export const SocketContext = createContext()
