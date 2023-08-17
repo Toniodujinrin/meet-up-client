@@ -29,6 +29,7 @@ const Signup = () => {
       signUp({password,email})
     }
   }
+  
   return ( 
     <main className='mainGradient w-screen h-screen flex flex-row items-center'>
       <div  className={` lg:w-[50%] w-full h-full flex flex-col p-4 items-center justify-center`}>

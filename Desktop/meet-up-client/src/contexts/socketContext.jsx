@@ -38,7 +38,6 @@ const SocketContextProvider = ({children})=>{
         sock.on("conn_error",()=>{toast.error("connection error")})
         navigate("/main",{replace:true})
         setSocket(sock)
-
         return ()=>{
             sock.disconnect()
         }
