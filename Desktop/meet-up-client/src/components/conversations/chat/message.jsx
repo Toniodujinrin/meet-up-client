@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime"
 
 const Message = ({body,timeStamp, senderId, status}) => {
+    const test = ""
     dayjs.extend(relativeTime)
     const user = JSON.parse(window.localStorage.getItem("user"))
     
