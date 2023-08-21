@@ -7,11 +7,12 @@ import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
 
 
-const URL = "https://meetup-rosy.vercel.app:443/"
+const URL = "http://16.171.230.118:3003/"
+// const URL = "https://meetup-rosy.vercel.app:443/"
 
 
 export const SocketContext = createContext()
-const sock = io(URL,{autoConnect:false})
+const sock = io(URL,{autoConnect:false, secure:true})
 
 const SocketContextProvider = ({children})=>{
     const user = JSON.parse(window.localStorage.getItem("user"))
@@ -27,6 +28,9 @@ const SocketContextProvider = ({children})=>{
     const [newMessage,setNewMessage] = useState({})
     const [encryptedGroupKey,setEncryptedGroupKey] = useState()
     const [currentConversation,setCurrentConversation] = useState('')
+    const [finishedTyper, setFinishedTyper] = useState("")
+    const [newTyper, setNewTyper] = useState("")
+    const [typing, setTyping] = useState([])
     
     useEffect(()=>{
         //perform connection again when the page is loaded redirect user to main page
@@ -42,6 +46,26 @@ const SocketContextProvider = ({children})=>{
             sock.disconnect()
         }
     },[])
+
+    useEffect(()=>{
+        if(newTyper && newTyper !== user._id){
+            setTyping([newTyper,...typing])
+        }
+        
+    },[newTyper])
+
+    useEffect(()=>{
+        if(finishedTyper){
+        let  _typing = [...typing]
+        _typing = _typing.filter(typer => typer != finishedTyper)
+        setTyping(_typing)
+        }
+    },[finishedTyper])
+
+    useEffect(()=>{
+        setNewTyper("")
+        setFinishedTyper("")
+    },[typing])
 
     const connect = ()=>{
         if(!checkForToken()) return navigate("/login")
@@ -107,9 +131,11 @@ const SocketContextProvider = ({children})=>{
             }
             setCurrentConversation(conversationId)
             socket.emit("join",{conversationId})
-            socket.on("previousMessages", args =>{setPreviousMessages(args)})
-            socket.on("groupKey", args => {setEncryptedGroupKey(args)})
-            socket.on("onlineUsers", args => {setOnlineGroupUsers(args)})
+            socket.on("typing", args =>setNewTyper(args))
+            socket.on("finished typing", args => setFinishedTyper(args))
+            socket.on("previousMessages", args =>setPreviousMessages(args))
+            socket.on("groupKey", args => setEncryptedGroupKey(args))
+            socket.on("onlineUsers", args => setOnlineGroupUsers(args))
             socket.on("new_message", args => setNewMessage(args))
         }
     }
@@ -128,10 +154,17 @@ const SocketContextProvider = ({children})=>{
         else toast.error("could not send message")
     }
 
+    const sendTyping = (isTyping)=>{
+        if(isTyping){
+            return socket.emit("typing",{conversationId:currentConversation})
+        }
+        socket.emit("finished typing",{conversationId:currentConversation})
+    }
+
     
 
     return(
-        <SocketContext.Provider value={{joinConversation, connect, messages, onlineGroupUsers, sendMessage, onlineContacts, leaveConversation,disconnect}}>
+        <SocketContext.Provider value={{joinConversation, connect, messages, onlineGroupUsers, sendMessage, onlineContacts, leaveConversation,disconnect, sendTyping, typing}}>
             {children}
         </SocketContext.Provider>
     )
