@@ -12,7 +12,7 @@ const URL = "http://16.171.230.118:3003/"
 
 
 export const SocketContext = createContext()
-const sock = io(URL,{autoConnect:false, secure:true})
+const sock = io(URL,{autoConnect:false, secure:false})
 
 const SocketContextProvider = ({children})=>{
     const user = JSON.parse(window.localStorage.getItem("user"))
