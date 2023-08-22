@@ -68,7 +68,7 @@ const Details = ({setWebcamShowing}) => {
         <InputGroup icon={"../bioIcon.svg"} type={"string"} placeholder={"Bio"} value={bio} setValue={setBio} error={errors.bio}/>
         </div>
         
-        <button disabled={disabled}  className={`${disabled? `bg-midGray`:`bg-tekhelet`} text-white h-[50px] rounded-xl flex items-center justify-center w-[300px] `}>
+        <button disabled={disabled}  className={`${disabled? `bg-midGray`:`bg-tekhelet`} text-white h-[50px] rounded-xl flex items-center justify-center w-[300px] mb-4 `}>
          {
            updateProcessLoading?
             <div className='dot-flashing'></div>:

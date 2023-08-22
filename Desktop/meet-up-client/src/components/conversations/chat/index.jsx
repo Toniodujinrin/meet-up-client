@@ -9,10 +9,14 @@ import Message from './message';
 import Typing from './typing';
 import { ConversationContext } from '../../../contexts/conversationContext';
 import ConversationMessage from './conversationMessage';
+import Details from './details';
+
 
 const Chat = () => {
 
     const ref = useRef()
+    const [currentDisplay, setCurrentDisplay] = useState("chat")
+
     const {messages, sendMessage, sendTyping, typing} = useContext(SocketContext)
     const {conversationDetails} = useContext(ConversationContext)
     const [value,setValue] = useState("")
@@ -50,44 +54,49 @@ const Chat = () => {
     },[isTyping])
     
     useEffect(()=>{
+
        if(ref.current){
-        ref.current.scroll()
+       ref.current.scrollTop = ref.current.scrollHeight
        }
-    },[])
+     
+    })
 
    
     
     return ( 
-        <div className='h-screen w-full flex flex-col'>
-        <Header/>
-        <div className='bg-black w-full h-[calc(100vh-200px)]'>
-            <div className='mx-auto w-fit p-2 mt-3 items-center flex flex-row gap-3 rounded-md bg-midGray'>
-                <img src="../lockIcon.svg" className='w-[20px] h-[20px]' alt="" />
-                <p className='text-mainGray'>End to End Encrypted</p>
-            </div>
-            <div ref={ref}  className=' flex overflow-scroll scrol  overflow-x-hidden h-[calc(100%-50px)] flex-col gap-4 w-full p-3 '>
-            {
-                    messages.map((message,index) =>
-                        
-                            conversationDetails.type == "single"
-                            ?
-                            <Message key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status}/>
-                            :
-                            <ConversationMessage key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status} />
-                        
-                        
-                    )
-                    }
-                
+        <>
+        {
+            currentDisplay == "chat"?
+
+            <div className='h-screen w-full flex flex-col'>
+            <Header setCurrentDisplay = {setCurrentDisplay}/>
+            <div className='bg-black flex justify-center items-center flex-col w-full h-[calc(100vh-200px)]'>
+                <div className='mx-auto w-fit p-2 mt-3 items-center flex flex-row gap-3 rounded-md bg-midGray'>
+                    <img src="../lockIcon.svg" className='w-[20px] h-[20px]' alt="" />
+                    <p className='text-mainGray'>End to End Encrypted</p>
+                </div>
+                <div ref={ref}  className=' flex overflow-scroll scrol  overflow-x-hidden h-[calc(100%-50px)] flex-col gap-4 w-full p-3 '>
                 {
-                    typing.length>0 &&
-                    <Typing user={typing[0]}/>
-                }
-                    
+                        messages.map((message,index) =>
+                            conversationDetails.type == "single"
+                                ?
+                                <Message key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status}/>
+                                :
+                                <ConversationMessage key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status} />
+                        )
+                        }
+                    {
+                        typing.length>0 &&
+                        <Typing user={typing[0]}/>
+                    }
+                </div>
             </div>
-        </div>
-        <InputBox handleTypingStart={handleTypingStart} handleTypingStop={handleTyinpingStop} value={value} setValue={setValue} handleSendMessage={handleSendMessage}/>
-        </div> 
+            <InputBox handleTypingStart={handleTypingStart} handleTypingStop={handleTyinpingStop} value={value} setValue={setValue} handleSendMessage={handleSendMessage}/>
+            </div> 
+            :
+            <Details setCurrentDisplay={setCurrentDisplay} conversationDetails={conversationDetails}/>
+        }
+        </>
     );
 }
  

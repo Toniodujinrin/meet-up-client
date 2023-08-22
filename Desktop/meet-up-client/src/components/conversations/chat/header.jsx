@@ -7,7 +7,7 @@ import { ConversationContext } from '../../../contexts/conversationContext';
 import { SocketContext } from '../../../contexts/socketContext';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({setCurrentDisplay}) => {
     const navigate = useNavigate()
     const {id} = useParams()
     dayjs.extend(relativeTime)
@@ -18,7 +18,7 @@ const Header = () => {
     return (  
         <div className='bg-darkGray w-full h-[100px] flex border-b border-midGray flex-row items-center justify-between p-4 '>
             <div className='flex flex-row gap-3 items-center'>
-            <img onClick={()=>{navigate("/main"); leaveConversation(id)}} src="../chevron.svg" className='w-[30px] h-[30px] rotate-180 lg:hidden' alt="" />
+            <img onClick={()=>{navigate("/main"); leaveConversation(id)}} src="../chevron.svg" className='w-[30px] h-[30px] cursor-pointer rotate-180 lg:hidden' alt="" />
                 <ProfilePic image={conversationDetails.conversationPic?conversationDetails.conversationPic.url:""}/>
                 <div>
                     <p className='text-white font-semibold'>{conversationDetails.name}</p>
@@ -37,7 +37,7 @@ const Header = () => {
             <div className='flex flex-row gap-4 '>
                 <img  className={'w-[25px] cursor-pointer'} src="../phoneIcon.svg" alt="" />
                 <img className={'w-[25px] cursor-pointer'} src="../videoIcon.svg" alt="" />
-                <img className={'w-[25px] cursor-pointer'} src="../menuIcon.svg" alt="" />
+                <img onClick={()=>setCurrentDisplay("details")} className={'w-[25px] cursor-pointer'} src="../menuIcon.svg" alt="" />
             </div>
         </div>
     );

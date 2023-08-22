@@ -6,7 +6,7 @@ const ProfilePic = ({image, type}) => {
         <div>
                 {
                     type == "online"&&
-                    <div className='w-[10px] h-[10px] border border-darkGray rounded-full relative top-[15px] bg-tekhelet'></div>
+                    <div className='w-[15px] aspect-square  border-2 border-darkGray rounded-full relative top-[15px] bg-tekhelet'></div>
                 }
             
             <div className={`w-[50px] ${!image && `p-2`} bg-black border-2 border-midGray aspect-square rounded-full`}>
