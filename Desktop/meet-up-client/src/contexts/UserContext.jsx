@@ -34,8 +34,8 @@ const UserContextProvider = ({children})=>{
             window.localStorage.setItem("token",token)
             const decodedToken = jwtDecode(token) 
             window.localStorage.setItem("user",JSON.stringify(decodedToken))
-            if(!decodedToken.accountVerified) return navigate("/verifyAccount",{replace:true})
             if(!decodedToken.emailVerified) return navigate("/verifyEmail",{replace:true})
+            if(!decodedToken.accountVerified) return navigate("/verifyAccount",{replace:true})
             else{
                 connect()
                 navigate("/main",{replace:true})
