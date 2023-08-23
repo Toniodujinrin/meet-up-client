@@ -6,12 +6,12 @@ import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
 
 
-const URL = "https://meetup-server.top"
+const URL = "https://meetup-server.top:443/"
 // const URL = "https://meetup-rosy.vercel.app:443/"
 
 
 export const SocketContext = createContext()
-const sock = io(URL,{autoConnect:false,  withCredentials:true})
+const sock = io(URL,{autoConnect:false,  withCredentials:true, secure:true})
 
 const SocketContextProvider = ({children})=>{
     const user = JSON.parse(window.localStorage.getItem("user"))
