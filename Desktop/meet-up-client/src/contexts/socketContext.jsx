@@ -6,7 +6,7 @@ import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
 
 
-const URL = "https://meetup-server.top:443/"
+const URL = "https://meetup-server.top/"
 // const URL = "https://meetup-rosy.vercel.app:443/"
 
 
