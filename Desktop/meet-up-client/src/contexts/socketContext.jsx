@@ -11,7 +11,7 @@ const URL = "https://meetup-server.top"
 
 
 export const SocketContext = createContext()
-const sock = io(URL,{autoConnect:false, secure:true, withCredentials:true})
+const sock = io(URL,{autoConnect:false,  withCredentials:true})
 
 const SocketContextProvider = ({children})=>{
     const user = JSON.parse(window.localStorage.getItem("user"))
