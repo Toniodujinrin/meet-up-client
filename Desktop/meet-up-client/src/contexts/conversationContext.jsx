@@ -33,7 +33,7 @@ const ConversationContextProvider  = ({children})=>{
         if(!checkForToken()) return navigate("/login",{replace:true})
         try {
             const {data} = await post("conversations",payload)
-            if (data && data.status == "success" ) queryClient.invalidateQueries({queryKey:["conversations"]})
+            if (data && data.status == "success" ) queryClient.invalidateQueries(["conversations"])
             navigate("/main")
         } catch (error) {
             if(error.response && error.response.data) return toast.error(error.response.data)
