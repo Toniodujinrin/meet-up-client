@@ -1,13 +1,12 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { io } from "socket.io-client";
-import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import Encryption from "../encryption";
 import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
 
 
-const URL = "https://meetup-server.top/"
+const URL = "https://meetup-server.top"
 // const URL = "https://meetup-rosy.vercel.app:443/"
 
 
