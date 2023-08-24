@@ -4,16 +4,19 @@ import { useNavigate } from "react-router-dom";
 import Encryption from "../encryption";
 import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 
 
 const URL = "https://meetup-server.top/"
-// const URL = "https://meetup-rosy.vercel.app:443/"
+
+//  const URL = "https://localhost:3004/"
 
 
 export const SocketContext = createContext()
 const sock = io(URL,{autoConnect:false,  withCredentials:true, secure:true})
 
 const SocketContextProvider = ({children})=>{
+    const queryClient = useQueryClient()
     const user = JSON.parse(window.localStorage.getItem("user"))
     const encryption = new Encryption()
     const [socket,setSocket] = useState()
@@ -30,14 +33,17 @@ const SocketContextProvider = ({children})=>{
     const [finishedTyper, setFinishedTyper] = useState("")
     const [newTyper, setNewTyper] = useState("")
     const [typing, setTyping] = useState([])
+    const [newNotification,setNewNotification] = useState([])
+    const [notifications, setNotifications] = useState([])
     
     useEffect(()=>{
-        //perform connection again when the page is loaded redirect user to main page
+        //perform connection again when the page is re-loaded redirect user to main page
         if(!checkForToken()) return navigate("/login")
         const token = window.localStorage.getItem("token")
         sock.auth = {token}
         sock.connect()
         sock.on("onlineContacts", args => setOnlineContacts(args) )
+        sock.on("notification",args => setNotifications(args))
         sock.on("conn_error",()=>{toast.error("connection error")})
         navigate("/main",{replace:true})
         setSocket(sock)
@@ -52,6 +58,7 @@ const SocketContextProvider = ({children})=>{
         }
         
     },[newTyper])
+
 
     useEffect(()=>{
         if(finishedTyper){
@@ -72,11 +79,13 @@ const SocketContextProvider = ({children})=>{
         sock.auth = {token}
         sock.connect()
         sock.on("onlineContacts", args => setOnlineContacts(args) )
+        sock.on("notification",args => setNotifications(args))
         setSocket(sock)
     }
 
     useEffect(()=>{
         try {
+            queryClient.invalidateQueries(["conversations"])
             if(newMessage && groupKey){
                 const _newMessage = newMessage
                 _newMessage.body = JSON.parse(encryption.decryptMessage(_newMessage.body, groupKey))
@@ -84,12 +93,10 @@ const SocketContextProvider = ({children})=>{
                     socket.emit("messageRead",{conversationId:currentConversation})
                 }
                 setMessages([...messages,_newMessage])
-                
         }
         } catch (error) {
             
         }
-      
     },[newMessage])
 
     useEffect(()=>{
@@ -116,6 +123,26 @@ const SocketContextProvider = ({children})=>{
        }
     },[groupKey,previousMessages])
 
+
+
+
+    useEffect(()=>{
+        if(newNotification.length >0){
+            queryClient.invalidateQueries(["conversations"])
+            setNotifications(newNotification)
+            toast.success("new message")
+        }
+    },[newNotification])
+
+
+
+
+
+
+
+
+
+
     const disconnect = ()=>{
         if(socket){
             socket.disconnect()
@@ -131,6 +158,8 @@ const SocketContextProvider = ({children})=>{
             setCurrentConversation(conversationId)
             socket.emit("join",{conversationId})
             socket.on("typing", args =>setNewTyper(args))
+            socket.on("notification", args => setNotifications(args))
+            socket.on("new_notification",args => setNewNotification(args))
             socket.on("finished typing", args => setFinishedTyper(args))
             socket.on("previousMessages", args =>setPreviousMessages(args))
             socket.on("groupKey", args => setEncryptedGroupKey(args))
@@ -163,7 +192,7 @@ const SocketContextProvider = ({children})=>{
     
 
     return(
-        <SocketContext.Provider value={{joinConversation, connect, messages, onlineGroupUsers, sendMessage, onlineContacts, leaveConversation,disconnect, sendTyping, typing}}>
+        <SocketContext.Provider value={{joinConversation, connect, messages, onlineGroupUsers, sendMessage, onlineContacts, leaveConversation,disconnect, sendTyping, typing, notifications}}>
             {children}
         </SocketContext.Provider>
     )

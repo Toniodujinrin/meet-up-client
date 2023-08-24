@@ -8,6 +8,11 @@ const PendingContactsSent = () => {
     const {pendingSent} = useContext(UserContext)
     const [searchResult,setSearchResults] = useState(pendingSent)
     const [value,setValue] = useState("")
+
+    useEffect(()=>{
+        setSearchResults(pendingSent)
+    },[pendingSent])
+
     useEffect(()=>{
         if(value.length>0){
             const results = pendingSent.filter(user=> user.username.toLowerCase().includes(value.toLocaleLowerCase() || user._id.toLocaleLowerCase().includes(value.toLocaleLowerCase())))

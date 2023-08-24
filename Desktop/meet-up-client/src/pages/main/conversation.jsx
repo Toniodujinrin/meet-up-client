@@ -16,7 +16,7 @@ const Conversation = () => {
         joinConversation(id)
     },[id])
     const {getSelf, getConversations} = useContext(UserContext)
-    const [q1,q2]  = useQueries([{queryKey:["user"], queryFn:getSelf},{queryKey:["conversations"], queryFn:getConversations},{queryKey:["conversations"], queryFn:getConversations}])
+    const [q1,q2]  = useQueries([{queryKey:["user"], queryFn:getSelf},{queryKey:["conversations"], queryFn:getConversations}])
     return ( 
         <>
         {

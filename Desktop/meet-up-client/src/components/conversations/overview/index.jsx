@@ -9,12 +9,15 @@ import { UserContext } from '../../../contexts/UserContext';
 
 const Overview = () => {
     const navigate = useNavigate()
-    const { logout} = useContext(UserContext)
+   
     const[search, setSeach] = useState("")
     const [dropDownShowing, setDrowpDownShowing] = useState(false)
-    const {userConversations}= useContext(UserContext)
+    const {userConversations, logout}= useContext(UserContext)
     const [searchResults,setSearchResults] = useState(userConversations)
 
+    useEffect(()=>{
+        setSearchResults(userConversations)
+    },[userConversations])
     useEffect(()=>{
         if(search.length>0){
            const results = userConversations.filter(conversation=> conversation.name.toLowerCase().includes(search.toLocaleLowerCase()))

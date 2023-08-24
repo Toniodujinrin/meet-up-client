@@ -159,7 +159,7 @@ const UserContextProvider = ({children})=>{
     
 
     return(
-        <UserContext.Provider value={{uploadProfilePic,profilePicLoading, updateProcessLoading,updateUser,acceptRequest, sendRequest, searchUsers, searchedUsers, userSearchLoading, authenticate, getPendingReceived, getPendingSent, pendingReceived, pendingSent, authenticationProcessLoading, getSelf,user, getConversations, userConversations, userContacts, getContacts,logout }}>
+        <UserContext.Provider value={{uploadProfilePic,profilePicLoading, updateProcessLoading,updateUser,acceptRequest, sendRequest, searchUsers, searchedUsers, userSearchLoading, authenticate, getPendingReceived, getPendingSent, pendingReceived, pendingSent, authenticationProcessLoading, getSelf,user, getConversations, userConversations, userContacts, getContacts,logout, setUserConversations }}>
             {children}
         </UserContext.Provider>
     )
