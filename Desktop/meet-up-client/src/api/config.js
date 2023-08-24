@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const client = axios.create({
-  // baseURL:"http://localhost:3003/api"
- baseURL:"https://meetup-server.top/api"
+  //baseURL:"http://localhost:3003/api"
+  baseURL:"https://meetup-server.top/api"
 })
 
 

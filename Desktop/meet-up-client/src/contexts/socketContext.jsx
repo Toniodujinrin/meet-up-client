@@ -7,9 +7,9 @@ import { toast } from "react-hot-toast";
 import { useQueryClient } from "react-query";
 
 
-const URL = "https://meetup-server.top/"
+ const URL = "https://meetup-server.top/"
 
-//  const URL = "https://localhost:3004/"
+ //const URL = "https://localhost:3004/"
 
 
 export const SocketContext = createContext()
@@ -43,6 +43,7 @@ const SocketContextProvider = ({children})=>{
         sock.auth = {token}
         sock.connect()
         sock.on("onlineContacts", args => setOnlineContacts(args) )
+        sock.on("new_notification",args => setNewNotification(args))
         sock.on("notification",args => setNotifications(args))
         sock.on("conn_error",()=>{toast.error("connection error")})
         navigate("/main",{replace:true})
@@ -79,6 +80,7 @@ const SocketContextProvider = ({children})=>{
         sock.auth = {token}
         sock.connect()
         sock.on("onlineContacts", args => setOnlineContacts(args) )
+        sock.on("new_notification",args => setNewNotification(args))
         sock.on("notification",args => setNotifications(args))
         setSocket(sock)
     }
