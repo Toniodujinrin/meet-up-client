@@ -30,7 +30,7 @@ const Details = ({conversationDetails, setCurrentDisplay}) => {
                 }
                 
                 </div>
-                <div className='flex flex-col gap-4 mt-4'>
+                <div className='flex flex-col gap-4 mt-4 lg:grid gird-cols-3'>
                     {
                         conversationDetails.users.map(user => (
                             <Contact 
