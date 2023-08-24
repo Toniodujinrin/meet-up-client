@@ -3,7 +3,7 @@ import Conversation from './conversation';
 import { useNavigate } from 'react-router-dom';
 const Conversations = ({searchResults}) => {
     const navigate = useNavigate()
-
+   
 
     return ( 
         <div className='bg-darkGray h-full w-full p-4'>
@@ -13,7 +13,12 @@ const Conversations = ({searchResults}) => {
             </div>
             {
                 searchResults.map(conversation =>
-                    <Conversation lastMessage={conversation.lastMessage} key={conversation._id} name={conversation.name} image={conversation.conversationPic?conversation.conversationPic.url:""} type={conversation.type} _id={conversation._id}/>
+                    <Conversation 
+                    lastMessage={conversation.lastMessage} 
+                    key={conversation._id} 
+                    name={conversation.name} 
+                    image={conversation.conversationPic && conversation.conversationPic.url? conversation.conversationPic.url:conversation.type =="single"? "../userIcon.svg":"../groupIcon.svg"} 
+                    />
                 )
             }
 

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ProfilePic from '../../profilePic';
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import { useContext } from 'react';
 import { SocketContext } from '../../../contexts/socketContext';
 
-const Conversation = ({name, image,_id,lastMessage}) => {
+const Conversation = ({name, image,_id,lastMessage, type}) => {
     const navigate = useNavigate()
     const location = useLocation()
     const {notifications} = useContext(SocketContext)
     const [amount,setAmount] = useState(0)
-    const user = JSON.parse(window.localStorage.getItem("user"))
     
+    
+
     useEffect(()=>{
         const notification = notifications.find(notification => notification.conversationId == _id)
         if(notification) setAmount(notification.amount)

@@ -49,7 +49,7 @@ const Details = ({setWebcamShowing}) => {
 
     return ( 
         <div className='w-full h-full flex flex-col lg:gap-8 gap-6 mt-4 items-center'>
-        <div className=' flex flex-col items-end'>
+        <div className=' lg:self-start flex flex-col items-end'>
         <div className={`lg:w-[300px] w-[200px] ${!user.profilePic && `p-2`} bg-black border-4 border-midGray aspect-square rounded-full`}>
             
         <img className={`w-full h-full ${user.profilePic  && `rounded-full`}`} src={user.profilePic?user.profilePic.url:"../userIcon.svg"} alt="" />
@@ -68,7 +68,7 @@ const Details = ({setWebcamShowing}) => {
         <InputGroup icon={"../bioIcon.svg"} type={"string"} placeholder={"Bio"} value={bio} setValue={setBio} error={errors.bio}/>
         </div>
         
-        <button disabled={disabled}  className={`${disabled? `bg-midGray`:`bg-tekhelet`} text-white h-[50px] rounded-xl flex items-center justify-center w-[300px] mb-4 `}>
+        <button disabled={disabled}  className={`${disabled? `bg-midGray`:`bg-tekhelet`} text-white h-[50px] lg:self-start rounded-xl flex items-center justify-center w-[300px] mb-4 `}>
          {
            updateProcessLoading?
             <div className='dot-flashing'></div>:

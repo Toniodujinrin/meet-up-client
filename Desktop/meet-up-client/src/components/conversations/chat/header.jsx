@@ -19,7 +19,10 @@ const Header = ({setCurrentDisplay}) => {
         <div className='bg-darkGray w-full h-[100px] flex border-b border-midGray flex-row items-center justify-between p-4 '>
             <div className='flex flex-row gap-3 items-center'>
             <img onClick={()=>{navigate("/main"); leaveConversation(id)}} src="../chevron.svg" className='w-[30px] h-[30px] cursor-pointer rotate-180 lg:hidden' alt="" />
-                <ProfilePic image={conversationDetails.conversationPic?conversationDetails.conversationPic.url:""}/>
+            
+                <ProfilePic 
+                image={conversationDetails.conversationPic?conversationDetails.conversationPic.url:""}
+                />
                 <div>
                     <p className='text-white font-semibold'>{conversationDetails.name}</p>
                     {

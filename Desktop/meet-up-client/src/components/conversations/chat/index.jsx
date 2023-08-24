@@ -4,7 +4,7 @@ import Header from './header';
 import { useContext } from 'react';
 import { SocketContext } from '../../../contexts/socketContext';
 import { useParams } from 'react-router-dom';
-import { useRef, createRef } from 'react';
+import { useRef} from 'react';
 import Message from './message';
 import Typing from './typing';
 import { ConversationContext } from '../../../contexts/conversationContext';
@@ -80,9 +80,21 @@ const Chat = () => {
                         messages.map((message,index) =>
                             conversationDetails.type == "single"
                                 ?
-                                <Message key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status}/>
+                                <Message 
+                                key={index} 
+                                body={message.body} 
+                                senderId={message.senderId} 
+                                timeStamp={message.timeStamp} 
+                                status={message.status}
+                                />
                                 :
-                                <ConversationMessage key={index} body={message.body} senderId={message.senderId} timeStamp={message.timeStamp} status={message.status} />
+                                <ConversationMessage 
+                                key={index} 
+                                body={message.body} 
+                                senderId={message.senderId} 
+                                timeStamp={message.timeStamp} 
+                                status={message.status} 
+                                />
                         )
                         }
                     {
@@ -91,10 +103,18 @@ const Chat = () => {
                     }
                 </div>
             </div>
-            <InputBox handleTypingStart={handleTypingStart} handleTypingStop={handleTyinpingStop} value={value} setValue={setValue} handleSendMessage={handleSendMessage}/>
+            <InputBox 
+            handleTypingStart={handleTypingStart} 
+            handleTypingStop={handleTyinpingStop} 
+            value={value} setValue={setValue} 
+            handleSendMessage={handleSendMessage}
+            />
             </div> 
             :
-            <Details setCurrentDisplay={setCurrentDisplay} conversationDetails={conversationDetails}/>
+            <Details 
+            setCurrentDisplay={setCurrentDisplay} 
+            conversationDetails={conversationDetails}
+            />
         }
         </>
     );
