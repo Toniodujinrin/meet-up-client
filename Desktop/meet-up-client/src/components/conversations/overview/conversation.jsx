@@ -25,8 +25,8 @@ const Conversation = ({name, image,_id,}) => {
         </div>
 
         {
-        amount &&
-        <div className='w-[20px] h-[20px] bg-tekhelet rounded-full flex items-center justify-center text-white'>
+        amount > 0 &&
+        <div className='w-[26px] h-[21px] bg-tekhelet rounded-[20px] flex items-center justify-center text-white'>
           {amount}
         </div>
         }
