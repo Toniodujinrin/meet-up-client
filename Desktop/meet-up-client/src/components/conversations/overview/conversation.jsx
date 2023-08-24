@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ProfilePic from '../../profilePic';
-import { useNavigate, useLocation} from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams} from 'react-router-dom';
 import { useContext } from 'react';
 import { SocketContext } from '../../../contexts/socketContext';
 
-const Conversation = ({name, image,_id,lastMessage, type}) => {
+const Conversation = ({name, image,_id,lastMessage}) => {
     const navigate = useNavigate()
     const location = useLocation()
     const {notifications} = useContext(SocketContext)
@@ -17,7 +17,7 @@ const Conversation = ({name, image,_id,lastMessage, type}) => {
         if(notification) setAmount(notification.amount)
         else setAmount(0)
     },[notifications])
-
+    
     return ( 
         <div onClick={()=>{ location.pathname != `/conversation/${_id}` && navigate(`/conversation/${_id}`,{replace:true})}} className='w-full border-b  border-midGray gap-4 flex flex-row  items-center justify-between h-[100px]'>
         <div className='flex items-center gap-4'>

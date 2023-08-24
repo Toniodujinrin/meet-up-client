@@ -14,6 +14,7 @@ const Conversations = ({searchResults}) => {
             {
                 searchResults.map(conversation =>
                     <Conversation 
+                    _id = {conversation._id}
                     lastMessage={conversation.lastMessage} 
                     key={conversation._id} 
                     name={conversation.name} 
