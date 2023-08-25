@@ -20,7 +20,7 @@ const Main = () => {
             <div className='lg:w-[40%] w-full border-r border-midGray '>
                 <Overview/>
             </div>
-            <div className='lg:w-[60%] lg:flex hidden bg-black '>
+            <div id="main-paper" className='lg:w-[60%] lg:flex hidden bg-repeat bg-black  '>
                
             </div>
         </div>

@@ -9,7 +9,7 @@ const Conversation = ({name, image,_id,lastMessage}) => {
     const location = useLocation()
     const {notifications} = useContext(SocketContext)
     const [amount,setAmount] = useState(0)
-    
+    const user = JSON.parse(window.localStorage.getItem("user"))
 
     
 
@@ -25,7 +25,7 @@ const Conversation = ({name, image,_id,lastMessage}) => {
         <ProfilePic image={image}/>
         <div>
             <h2 className='text-white'>{name}</h2>
-            <small className='text-mainGray'>{lastMessage&&`Last message by ${lastMessage.senderId}`}</small>
+            <small className='text-mainGray'>{lastMessage&&`Last message by ${user && user._id == lastMessage.senderId?"you": lastMessage.senderId}`}</small>
         </div>
         </div>
 
