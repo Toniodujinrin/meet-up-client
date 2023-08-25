@@ -9,7 +9,8 @@ import Message from './message';
 import Typing from './typing';
 import { ConversationContext } from '../../../contexts/conversationContext';
 import ConversationMessage from './conversationMessage';
-import Details from './details';
+import Info from './detailsComponents/info';
+import Add from "./detailsComponents/add"
 
 
 const Chat = () => {
@@ -66,7 +67,8 @@ const Chat = () => {
     return ( 
         <>
         {
-            currentDisplay == "chat"?
+            currentDisplay == "chat" &&
+            
 
             <div className='h-screen w-full flex flex-col'>
             <Header setCurrentDisplay = {setCurrentDisplay}/>
@@ -110,12 +112,22 @@ const Chat = () => {
             handleSendMessage={handleSendMessage}
             />
             </div> 
-            :
-            <Details 
-            setCurrentDisplay={setCurrentDisplay} 
-            conversationDetails={conversationDetails}
-            />
+         }
+            
+        {
+            currentDisplay == "info" &&
+
+            <Info  setCurrentDisplay={setCurrentDisplay} />
+           
+            
+            
         }
+        {
+            currentDisplay == "add" &&
+            <Add setCurrentDisplay={setCurrentDisplay}/>
+        }
+           
+        
         </>
     );
 }

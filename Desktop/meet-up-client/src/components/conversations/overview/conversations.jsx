@@ -3,8 +3,8 @@ import Conversation from './conversation';
 import { useNavigate } from 'react-router-dom';
 const Conversations = ({searchResults}) => {
     const navigate = useNavigate()
-   
-
+    
+  
     return ( 
         <div className='bg-darkGray h-full w-full p-4'>
             <div className='w-full flex flex-row justify-between items-center'>

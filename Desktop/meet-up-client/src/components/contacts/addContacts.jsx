@@ -16,20 +16,30 @@ const AddUsers = () => {
 
 
     return ( 
+        
       
             <div>
-            <SearchBar value={value} setValue={setValue} placeholder={"search for a contact"}/>
+            <SearchBar 
+            value={value} 
+            setValue={setValue} 
+            placeholder={"search for a contact"}
+            />
+
             <div className='w-full h-full  flex  items-center justify-center'>
             {
                 userSearchLoading?
 
                 <div className='loader'></div>
                 :
-                
                 <div className='flex flex-col gap-4 lg:grid grid-cols-3 w-full h-full '>
                     {
                     searchedUsers.map(user => 
-                        <Contact key={user._id} username={user.username}  image={user.profilePic?user.profilePic.url:""} _id={user._id}/>
+                        <Contact 
+                        key={user._id} 
+                        username={user.username}  
+                        image={user.profilePic?user.profilePic.url:""}
+                         _id={user._id}
+                         />
                     )
                 }
                 </div>

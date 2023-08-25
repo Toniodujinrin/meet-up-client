@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProfilePic from '../../profilePic';
-import { useNavigate, useLocation, useSearchParams} from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import { useContext } from 'react';
 import { SocketContext } from '../../../contexts/socketContext';
 
@@ -10,6 +10,7 @@ const Conversation = ({name, image,_id,lastMessage}) => {
     const {notifications} = useContext(SocketContext)
     const [amount,setAmount] = useState(0)
     
+
     
 
     useEffect(()=>{
@@ -19,12 +20,12 @@ const Conversation = ({name, image,_id,lastMessage}) => {
     },[notifications])
     
     return ( 
-        <div onClick={()=>{ location.pathname != `/conversation/${_id}` && navigate(`/conversation/${_id}`,{replace:true})}} className='w-full border-b  border-midGray gap-4 flex flex-row  items-center justify-between h-[100px]'>
+        <div onClick={()=>{ location.pathname != `/conversation/${_id}` && navigate(`/conversation/${_id}`,{replace:true})}} className='w-full border-b cursor-pointer  border-midGray gap-4 flex flex-row  items-center justify-between h-[100px]'>
         <div className='flex items-center gap-4'>
         <ProfilePic image={image}/>
         <div>
             <h2 className='text-white'>{name}</h2>
-            <small className='text-mainGray'>{`Last message by ${lastMessage.senderId}`}</small>
+            <small className='text-mainGray'>{lastMessage&&`Last message by ${lastMessage.senderId}`}</small>
         </div>
         </div>
 
