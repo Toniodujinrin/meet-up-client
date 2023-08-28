@@ -10,7 +10,7 @@ const Info = ({setCurrentDisplay}) => {
     const [deleteShowing, setDeleteShowing] = useState(false)
     const [deleteAction, setDeleteAction] = useState("")
     return ( 
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center  bg-black  justify-center'>
         {
             deleteShowing &&
             <DeletePopUp setDeleteShowing={setDeleteShowing} deleteAction={deleteAction}/>
