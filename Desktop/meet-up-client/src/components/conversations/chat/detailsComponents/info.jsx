@@ -1,12 +1,22 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import Contact from '../../../contacts/contacts';
-
 import { ConversationContext } from '../../../../contexts/conversationContext';
+import ButtonMain from '../../../buttonMain';
+import DangerButton from '../../../DangerButton';
+import DeletePopUp from './deletePopUp';
 
 const Info = ({setCurrentDisplay}) => {
     const {conversationDetails} = useContext(ConversationContext)
+    const [deleteShowing, setDeleteShowing] = useState(false)
+    const [deleteAction, setDeleteAction] = useState("")
     return ( 
-        <div className='flex flex-col items-center p-4 w-full'>
+        <div className='flex items-center justify-center'>
+        {
+            deleteShowing &&
+            <DeletePopUp setDeleteShowing={setDeleteShowing} deleteAction={deleteAction}/>
+        }
+        <div className={`flex flex-col items-center justify-center ${deleteShowing && `blur-lg`}   p-4 w-full  `}>
+           
             <img onClick={()=>setCurrentDisplay("chat")} className='flex cursor-pointer self-start w-[30px] h-[30px] rotate-180' src="../chevron.svg" alt="" />
             <img className='w-[200px] aspect-square rounded-full border-4  border-midGray ' src={conversationDetails.conversationPic && conversationDetails.conversationPic.url ?conversationDetails.conversationPic.url: conversationDetails.type == "single"?"../userIcon.svg":"../groupIcon.svg"} alt="" />
             <h2 className='text-white text-[24px]'>{conversationDetails.name}</h2>
@@ -27,22 +37,29 @@ const Info = ({setCurrentDisplay}) => {
                 <h1 className='text-white text-[21px]'>Members</h1>
                 {
                     conversationDetails.type == "group" &&
-                    <button onClick={()=>setCurrentDisplay("add")}  className='py-2 w-[100px] bg-tekhelet rounded-lg text-white'>Add</button>
+                    <ButtonMain text={"Add"} onClick={()=>setCurrentDisplay("add")}/>
+                    
                 }
                 
                 </div>
-                <div className='flex flex-col items-center  w-full gap-3 mt-4 lg:grid grid-cols-3'>
+                <div className='flex flex-col items-center mb-[50px]  w-full gap-3 mt-4 lg:grid grid-cols-3'>
                     {
                         conversationDetails.users.map(user => (
                             <Contact 
                             key={user._id} 
                             username={user.username}
-                            image={user.profilePic? user.profilePic.url:""} _id={user._id}
+                            image={user.profilePic? user.profilePic.url:"../userIcon.svg"} _id={user._id}
                             />
                         ))
                     }
                 </div>
             </div>
+
+            <div className='flex flex-col gap-4 self-start'>
+                <DangerButton text={"Leave Conversation"} onClick={()=>{setDeleteShowing(true); setDeleteAction("leave")}} loading={false}/>
+                <DangerButton text={"Delete Conversation"} onClick={()=>{setDeleteShowing(true); setDeleteAction("delete")}} loading={false}/>
+            </div>
+        </div>
         </div>
      );
 }

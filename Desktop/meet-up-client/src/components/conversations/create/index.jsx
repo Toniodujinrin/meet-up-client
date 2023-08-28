@@ -5,6 +5,7 @@ import Contact from './contact';
 import InputGroup from '../../inputGroup';
 import { ConversationContext } from '../../../contexts/conversationContext';
 import BackArrow from '../../backArrow';
+import ButtonMain from '../../buttonMain';
 
 const Create = () => {
     const {userContacts} = useContext(UserContext)
@@ -43,7 +44,8 @@ const Create = () => {
             <BackArrow/>
             <h1 className='text-white font-semibold text-[32px]'>New</h1>
             </div>
-            <button onClick={handleCreate} disabled={selected.length == 0 || (selected.length > 1 && name.length ===0)}   className='py-2 w-[100px] bg-tekhelet rounded-lg text-white'>Create</button>
+            <ButtonMain onClick={handleCreate} disabled={selected.length == 0 || (selected.length > 1 && name.length ===0)} text={"Create"}/>
+           
             </div>
             {
                 selected.length > 1 &&

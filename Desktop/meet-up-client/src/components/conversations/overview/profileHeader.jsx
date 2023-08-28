@@ -12,7 +12,7 @@ const ProfileHeader = ({setDrowpDownShowing, dropDownShowing}) => {
     return ( 
         <div className='flex flex-row p-4 border-b z-20 w-full justify-between h-[100px] border-midGray items-center'>
             <div onClick={()=> navigate("/settings")} className=' flex flex-row cursor-pointer  gap-4'>
-            <ProfilePic image={user.profilePic?user.profilePic.url:""}/>
+            <ProfilePic image={user.profilePic?user.profilePic.url:"../userIcon.svg"}/>
             <div>
                 <p className='text-white'>{user.username}</p>
                 <small className='text-mainGray'>My Account</small>

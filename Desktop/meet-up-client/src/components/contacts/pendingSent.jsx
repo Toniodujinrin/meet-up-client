@@ -30,7 +30,7 @@ const PendingContactsSent = () => {
             <div className='w-full h-full lg:grid grid-cols-3 flex gap-4 flex-col items-center'>
             {
                 searchResult.map(user => 
-                    <Contact key={user._id} image={user.profilePic?user.profilePic.url:""} username={user.username} _id={user._id}/>
+                    <Contact key={user._id} image={user.profilePic?user.profilePic.url:"../userIcon.svg"} username={user.username} _id={user._id}/>
                 )
             }
             </div>

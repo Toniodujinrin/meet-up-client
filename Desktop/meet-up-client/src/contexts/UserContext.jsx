@@ -41,7 +41,8 @@ const UserContextProvider = ({children})=>{
                 navigate("/main",{replace:true})
             }
         } catch (error) {
-            toast.error("could not log in, try again later")
+            if(error.response && error.response.data) return toast.error(error.response.data)
+            toast.error("could not log in, please try later")
         }
         finally{
             setAuthenticationProcessLoading(false)

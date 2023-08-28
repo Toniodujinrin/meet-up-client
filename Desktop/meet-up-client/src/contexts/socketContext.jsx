@@ -57,7 +57,6 @@ const SocketContextProvider = ({children})=>{
         if(newTyper && newTyper !== user._id){
             setTyping([newTyper,...typing])
         }
-        
     },[newTyper])
 
 
@@ -102,9 +101,7 @@ const SocketContextProvider = ({children})=>{
     },[newMessage])
 
     useEffect(()=>{
-        
         if(encryptedGroupKey && user){
-            
             setGroupKey(encryption.decryptGroupKey(user.keyPair.privateKey,encryptedGroupKey))
         }
     },[encryptedGroupKey])
@@ -194,7 +191,7 @@ const SocketContextProvider = ({children})=>{
     
 
     return(
-        <SocketContext.Provider value={{joinConversation, connect, messages, onlineGroupUsers, sendMessage, onlineContacts, leaveConversation,disconnect, sendTyping, typing, notifications}}>
+        <SocketContext.Provider value={{joinConversation, connect, messages, onlineGroupUsers, sendMessage, onlineContacts, leaveConversation,disconnect, sendTyping, typing, notifications, groupKey}}>
             {children}
         </SocketContext.Provider>
     )

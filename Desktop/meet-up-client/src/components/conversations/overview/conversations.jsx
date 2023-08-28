@@ -1,6 +1,7 @@
 import React from 'react';
 import Conversation from './conversation';
 import { useNavigate } from 'react-router-dom';
+import ButtonMain from '../../buttonMain';
 const Conversations = ({searchResults}) => {
     const navigate = useNavigate()
     
@@ -9,7 +10,8 @@ const Conversations = ({searchResults}) => {
         <div className='bg-darkGray h-full w-full p-4'>
             <div className='w-full flex flex-row justify-between items-center'>
             <h1 className='text-[21px] text-white'>Conversations</h1>
-            <button  onClick={()=>navigate("/create")} className='py-2 w-[100px] bg-tekhelet rounded-lg text-white'>New</button>
+            <ButtonMain onClick={()=>navigate("/create")} text={"New"}/>
+            
             </div>
             {
                 searchResults.map(conversation =>

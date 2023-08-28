@@ -37,7 +37,7 @@ const AddUsers = () => {
                         <Contact 
                         key={user._id} 
                         username={user.username}  
-                        image={user.profilePic?user.profilePic.url:""}
+                        image={user.profilePic?user.profilePic.url:"../userIcon.svg"}
                          _id={user._id}
                          />
                     )

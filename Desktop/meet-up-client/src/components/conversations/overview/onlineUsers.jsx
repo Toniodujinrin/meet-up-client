@@ -18,7 +18,7 @@ const OnlineUsers = () => {
                     
                         <div key={index}  className={`items-center ${!onlineContacts.includes(user._id) && `hidden` } flex flex-col`}>
                         <ProfilePic 
-                        image={user.profilePic? user.profilePic.url: ""} 
+                        image={user.profilePic? user.profilePic.url: "../userIcon.svg"} 
                         type={'online'}
                         />
                         <p  className=' text-mainGray'>{user.username}</p>

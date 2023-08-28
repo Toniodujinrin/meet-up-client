@@ -21,7 +21,7 @@ const Header = ({setCurrentDisplay}) => {
             <img onClick={()=>{navigate("/main"); leaveConversation(id)}} src="../chevron.svg" className='w-[30px] h-[30px] cursor-pointer rotate-180 lg:hidden' alt="" />
 
                 <ProfilePic 
-                image={conversationDetails.conversationPic?conversationDetails.conversationPic.url:""}
+                image={conversationDetails.conversationPic.url?conversationDetails.conversationPic.url: conversationDetails.type == "single"?"../userIcon.svg":"../groupIcon.svg"}
                 />
                 <div>
                     <p className='text-white font-semibold'>{conversationDetails.name}</p>

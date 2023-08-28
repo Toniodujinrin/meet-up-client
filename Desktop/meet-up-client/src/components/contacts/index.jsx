@@ -4,6 +4,7 @@ import PendingContactsSent from './pendingSent';
 import PendingContactsReceived from './pendingReceived';
 import AddUsers from './addContacts';
 import BackArrow from '../backArrow';
+import ButtonMain from '../buttonMain';
 
 const ContactsComp = () => {
     const [currentPage,setCurrentPage] = useState("current")
@@ -13,7 +14,7 @@ const ContactsComp = () => {
         <div className='w-full h-full p-4'>
             <div className='w-full flex flex-row items-center justify-between' >
             {
-                    currentPage == "add"?
+                    currentPage === "add"?
                     <div className=' flex flex-row gap-2 items-center'>
                     <img onClick={()=>{setCurrentPage("current"); setDropDownShowing(false)}} src="../chevron.svg" className='w-[25px] h-[25px] rotate-180' alt="" />
                     <div className='text-white text-[36px]'>Add Users</div>
@@ -25,7 +26,8 @@ const ContactsComp = () => {
                      <div>Contacts</div>
                     <img onClick={()=>setDropDownShowing(!dropDownShowing)} className={`w-[30px] h-[30px]  transition-[5000] ${dropDownShowing?"":`rotate-90`} `} src="../chevron.svg" alt="" />
                     </div>
-                    <button  onClick={()=>{setCurrentPage("add"); setDropDownShowing(false)}} className='py-2 w-[100px] bg-tekhelet rounded-lg text-white'>Add</button>
+                    <ButtonMain onClick={()=>{setCurrentPage("add"); setDropDownShowing(false)}} text={"Add"}/>
+                    
                     </>
             }
             </div>
@@ -36,21 +38,21 @@ const ContactsComp = () => {
             </ul>
 
             {
-                currentPage == "current" &&
+                currentPage === "current" &&
                 <CurrentContacts/>
             }
 
             {
-                currentPage == "pending"&&
+                currentPage === "pending"&&
                 <PendingContactsSent/>
             }
 
             {
-                currentPage == "requests"&&
+                currentPage === "requests"&&
                 <PendingContactsReceived/>
             }
             {
-                currentPage == "add"&&
+                currentPage === "add"&&
                 <AddUsers/>
             }
         </div>
