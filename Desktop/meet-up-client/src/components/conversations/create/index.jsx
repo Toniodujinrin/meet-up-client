@@ -55,7 +55,7 @@ const Create = () => {
             <div className='w-full lg:grid grid-cols-3 flex flex-col  mt-4 gap-4'>
             {
                 userContacts.map(contact => 
-                    <Contact image={contact.profilePic? contact.profilePic.url:""} username={contact.username} _id = {contact._id} selected={selected} select={select}/>
+                    <Contact key={contact._id} image={contact.profilePic? contact.profilePic.url:"../userIcon.svg"} username={contact.username} _id = {contact._id} selected={selected} select={select}/>
                 )
             }
             </div>
