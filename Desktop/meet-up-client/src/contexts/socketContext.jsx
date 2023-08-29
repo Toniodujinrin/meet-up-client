@@ -170,7 +170,9 @@ const SocketContextProvider = ({children})=>{
     const leaveConversation = (conversationId)=>{
         if(socket){
             socket.emit("leaveRoom",{conversationId})
+            setMessages([])
         }
+        
     }
 
     const sendMessage = (payload)=>{
