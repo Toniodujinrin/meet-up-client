@@ -16,7 +16,7 @@ const ConversationMessage = ({body,timeStamp, senderId, status}) => {
         
 
         <div className={`flex flex-col ${senderId._id == user._id && ` items-end`}  `}>
-        <div className={`${senderId._id == user._id?`bg-tekhelet self-end`:`bg-midGray self-start`} w-fit flex  px-[9px] py-[6px] text-white rounded-[18px]`}>
+        <div className={`${senderId._id == user._id?`bg-tekhelet self-end`:`bg-midGray self-start`} w-fit max-w-[300px] flex  px-[9px] py-[6px] text-white rounded-[18px]`}>
             <p>{body}</p>
         </div>
         <div className='flex flex-row gap-2'>

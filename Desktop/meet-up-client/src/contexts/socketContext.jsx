@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { io } from "socket.io-client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Encryption from "../encryption";
 import { TokenContext } from "./TokenContext";
 import { toast } from "react-hot-toast";
@@ -9,13 +9,14 @@ import { useQueryClient } from "react-query";
 
  const URL = "https://meetup-server.top/"
 
- //const URL = "https://localhost:3004/"
+//  const URL = "https://localhost:3004/"
 
 
 export const SocketContext = createContext()
 const sock = io(URL,{autoConnect:false,  withCredentials:true, secure:true})
 
 const SocketContextProvider = ({children})=>{
+    const location = useLocation()
     const queryClient = useQueryClient()
     const user = JSON.parse(window.localStorage.getItem("user"))
     const encryption = new Encryption()
@@ -129,7 +130,31 @@ const SocketContextProvider = ({children})=>{
         if(newNotification.length >0){
             queryClient.invalidateQueries(["conversations"])
             setNotifications(newNotification)
-            toast.success("new message")
+            toast.custom((t) => (
+                <div
+                  onClick={()=>{ location.pathname != `/conversation/${newNotification[0].conversationId}` && navigate(`/conversation/${newNotification[0].conversationId}`,{replace:true}); toast.dismiss(t.id)}}
+                  className={`${
+                    t.visible ? 'animate-enter' : 'animate-leave'
+                  } max-w-md w-full bg-black shadow-lg rounded-lg pointer-events-auto cursor-pointer flex border-2 border-mainGray`}
+                >
+                  <div className="flex-1 w-0 p-4">
+                    <div className="flex items-start">
+                      <div className="ml-3 flex-1 text-white">
+                      <p className="text-[18px] font-semibold">New Message</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex border-l-2  border-mainGray">
+                    <button
+                      onClick={() => toast.dismiss(t.id)}
+                      className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-tekhelet hover:text-indigo-500 "
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ))
+              setNewNotification([])
         }
     },[newNotification])
 
